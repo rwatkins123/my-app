@@ -3,7 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, Image, TouchableOpacity, Platform } from 'react-native';
 import styles from './Styles';
 import * as ImagePicker from 'expo-image-picker';
-import * as Sharing from 'expo-sharing'
+import * as Sharing from 'expo-sharing';
+import uploadToAnonymousFilesAsync from 'anonymous-files';
 
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null)
@@ -15,21 +16,26 @@ export default function App() {
       alert("Permission to access camera roll is required");
       return;
     }
-    let pickerResult = await ImagePicker.launchImageLibraryAsync();
 
+    let pickerResult = await ImagePicker.launchImageLibraryAsync();
     if (pickerResult.cancelled === true) {
       return;
     }
-    setSelectedImage({ localUri: pickerResult.uri })
-    // console.log(pickerResult);
+
+    if (Platform.OS === 'web') {
+      let remoteUri = await uploadToAnonymousFilesAsync(pickerResult.uri);
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri })
+    } else {
+      setSelectedImage({ localUri: pickerResult.uri, remoteUri: null });
+    }
   };
 
   let openShareDialogAsync = async () => {
     if (Platform.OS === 'web') {
-      alert('Oops, sharing is not available on your platform');
+      alert(`You can upload your image at: ${selectedImage.remoteUri}`);
       return;
     }
-    await Sharing.shareAsync(selectedImage.localUri)
+    Sharing.shareAsync(selectedImage.remoteUri || selectedImage.localUri);
   };
 
   if (selectedImage !== null) {
