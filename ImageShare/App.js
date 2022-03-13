@@ -6,6 +6,7 @@ import * as ImagePicker from 'expo-image-picker';
 import * as Sharing from 'expo-sharing';
 import uploadToAnonymousFilesAsync from 'anonymous-files';
 
+
 export default function App() {
   const [selectedImage, setSelectedImage] = React.useState(null)
 
@@ -46,7 +47,7 @@ export default function App() {
           style={styles.thumbnail}
           />
           <TouchableOpacity onPress={openShareDialogAsync} style={styles.button}>
-            <Text style={styles.buttonText}>Share this photo</Text>
+            <Text style={styles.buttonText}>Identify Plant!</Text>
           </TouchableOpacity>
       </View>
     )
