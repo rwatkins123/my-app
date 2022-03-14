@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#00bfff',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -13,10 +13,24 @@ const styles = StyleSheet.create({
     height: 350,
     marginBottom:10,
   },
+  input: {
+    height: 40,
+    margin: 12,
+    borderWidth: 1,
+    padding: 10,
+  },
   instructions: {
-    color: 'blue',
-    fontSize: 18,
-    marginHorizontal:5
+    color: '#0703aa',
+    fontSize: 22,
+    marginHorizontal: 5,
+    fontWeight: 'bold'
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    backgroundColor: '#00bfff',
+    color: 'white',
+    padding: 10
   },
   button: {
     backgroundColor: 'green',
@@ -31,7 +45,10 @@ const styles = StyleSheet.create({
     width: 300,
     height: 300,
     resizeMode: "contain"
-  }
+  },
+  baseText: {
+    fontFamily: "Cochin"
+  },
 });
 
 export default styles
